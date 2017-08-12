@@ -9,12 +9,12 @@ CREATE TABLE proveedor(
     apellido varchar(40) NOT NULL,
     nombre varchar(40) NOT NULL,
     rubro varchar(40) NOT NULL,
-    ciudad varchar(40) NOT NULL,
+    ciudad varchar(40) NOT NULL
     );
 
-CREATE TABLE proveedor(
+CREATE TABLE envio(
     id_proveedor integer REFERENCES proveedor,
     id_articulo integer REFERENCES articulo,
-    apellido varchar(40) NOT NULL,
+    cantidad integer NOT NULL,
     PRIMARY KEY(id_proveedor, id_articulo)
     );
