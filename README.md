@@ -1,7 +1,7 @@
 # Final de bases de datos 1
 
 ## Creación de tablas
-### Artículo
+### N:N
 ```sql
 CREATE TABLE articulo(
     id_articulo integer PRIMARY KEY,
@@ -9,7 +9,6 @@ CREATE TABLE articulo(
     peso integer NOT NULL
     );
 ```
-### Proveedor
 ```sql
 CREATE TABLE proveedor(
     id_proveedor integer PRIMARY KEY,
@@ -19,8 +18,6 @@ CREATE TABLE proveedor(
     ciudad varchar(40) NOT NULL
     );
 ```
-
-### Envío
 ```sql
 CREATE TABLE envio(
     id_proveedor integer REFERENCES proveedor,
@@ -28,29 +25,40 @@ CREATE TABLE envio(
     cantidad integer NOT NULL,
     PRIMARY KEY(id_proveedor, id_articulo)
     );
-  ```  
-
-## Inserts
-### Artículos
-```sql
-INSERT INTO articulo VALUES(1, 'zapatilla', 800);
-INSERT INTO articulo VALUES(2, 'botin', 830);
-INSERT INTO articulo VALUES(3, 'zapato', 1130);
-INSERT INTO articulo VALUES(4, 'zapato trabajo', 1730);
 ```
-
-### Proveedor
+###  1:N
 ```sql
-INSERT INTO proveedor VALUES(1, 'apellido1', 'nombre', 'calzado', 'tandil');
-INSERT INTO proveedor VALUES(2, 'apellido2', 'nombre', 'calzado', 'tandil');
-INSERT INTO proveedor VALUES(3, 'apellido3', 'nombre', 'calzado', 'caba');
-INSERT INTO proveedor VALUES(4, 'apellido4', 'nombre', 'calzado', 'caba');
+CREATE TABLE persona(
+    id_persona integer PRIMARY KEY,
+    nombre varchar(40) NOT NULL,
+    peso integer NOT NULL,
+    id_empresa integer  REFERENCES empresa
+    );
 ```
-
-### Envío
 ```sql
-INSERT INTO envio VALUES(1, 4, 121);
-INSERT INTO envio VALUES(1, 3, 12);
-INSERT INTO envio VALUES(2, 1, 12);
-INSERT INTO envio VALUES(2, 2, 176);
+CREATE TABLE empresa(
+    id_empresa integer PRIMARY KEY,
+    nombre varchar(40) NOT NULL,
+    ciudad varchar(40) NOT NULL
+    );
+```
+###  Strong : weak
+```sql
+/*
+CREATE TABLE persona(
+    id_persona integer PRIMARY KEY,
+    nombre varchar(40) NOT NULL,
+    peso integer NOT NULL,
+    id_empresa integer  REFERENCES empresa
+    );
+*/
+```
+```sql
+CREATE TABLE historial(
+    id_entrada integer REFERENCES persona NOT NULL,
+    id_persona integer NOT NULL,
+    descripcion varchar(40) NOT NULL,
+    peso integer NOT NULL,
+    PRIMARY KEY(id_entrada, id_persona)
+    );
 ```
